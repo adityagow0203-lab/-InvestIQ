@@ -1,4 +1,4 @@
-# InvestIQ (Frontend)
+# InvestIQ 
 
 ## Overview
 
