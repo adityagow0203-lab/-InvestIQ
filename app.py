@@ -80,6 +80,32 @@ def signup():
         "message": "Account created successfully"
     })
 
+# PORTFOLIO ROUTE
+@app.route('/portfolio/<int:user_id>', methods=['GET'])
+def get_portfolio(user_id):
+
+    query = """
+    SELECT stock_symbol, quantity, buy_price
+    FROM portfolio
+    WHERE user_id=%s
+    """
+
+    cursor.execute(query, (user_id,))
+
+    data = cursor.fetchall()
+
+    portfolio = []
+
+    for row in data:
+
+        portfolio.append({
+            "stock_symbol": row[0],
+            "quantity": row[1],
+            "buy_price": row[2]
+        })
+
+    return jsonify(portfolio)
+
 # Run server
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
